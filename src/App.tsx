@@ -34,7 +34,7 @@ function LanguageRedirect() {
 }
 
 function App() {
-  const[user,loading]=useAuthState(auth)
+  const [, loading] = useAuthState(auth)
   
 
   if (loading) {
