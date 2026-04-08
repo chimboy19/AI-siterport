@@ -133,7 +133,7 @@ const Sidebar = ({isOpen,onClose}:SidebarProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-ink/60 backdrop-blur-sm z-50 lg:hidden"
+              className="fixed inset-0 bg-ink/60 backdrop-blur-sm z-50 lg:hidden print:hidden"
               onClick={onClose}
             />
           )}
@@ -146,7 +146,7 @@ const Sidebar = ({isOpen,onClose}:SidebarProps) => {
             animate={isOpen ? "open" : "closed"}
             variants={sidebarVariants}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 h-full w-64 bg-white border-r border-line z-50 lg:hidden"
+            className="fixed top-0 left-0 h-full w-64 bg-white border-r border-line z-50 lg:hidden print:hidden"
           >
             {content}
           </motion.aside>
@@ -154,7 +154,7 @@ const Sidebar = ({isOpen,onClose}:SidebarProps) => {
 
         {/* Desktop Sidebar */}
         {isDesktop && (
-          <aside className="hidden lg:block w-64 h-screen bg-white border-r border-line fixed top-0 left-0 z-30">
+          <aside className="hidden lg:block w-64 h-screen bg-white border-r border-line fixed top-0 left-0 z-30 print:hidden">
             {content}
           </aside>
         )}

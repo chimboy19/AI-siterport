@@ -28,7 +28,6 @@ import { ja, enUS } from "date-fns/locale";
 import { toast } from "react-hot-toast";
 import jsPDF from "jspdf";
 import { toCanvas } from "html-to-image";
-
 const translations = {
   en: {
     backToProject: "Back to Project",
@@ -122,7 +121,6 @@ export default function ReportEditorPage() {
     try {
       const element = reportRef.current;
       
-      // Use higher pixelRatio for better quality, enable CORS for Firebase Storage images
       const canvas = await toCanvas(element, {
         pixelRatio: 2,
         backgroundColor: "#ffffff",
@@ -135,33 +133,25 @@ export default function ReportEditorPage() {
         }
       });
 
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgData = canvas.toDataURL("image/jpeg", 0.98);
       
+      const pdfWidth = 210;
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
       const ratio = pdfWidth / imgWidth;
       const imgScaledHeight = imgHeight * ratio;
       
-      let heightLeft = imgScaledHeight;
-      let position = 0;
-
-      // First page
-      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgScaledHeight, undefined, 'FAST');
-      heightLeft -= pdfHeight;
-
-      // Subsequence pages if content is long
-      while (heightLeft > 0) {
-        position = heightLeft - imgScaledHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgScaledHeight, undefined, 'FAST');
-        heightLeft -= pdfHeight;
-      }
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: [pdfWidth, imgScaledHeight]
+      });
+      
+      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, imgScaledHeight);
 
       const fileName = `${report.title.replace(/\s+/g, "-").toLowerCase()}-${format(new Date(report.date), "yyyy-MM-dd")}.pdf`;
       pdf.save(fileName);
+      
       toast.success(lang === "jp" ? "PDFを保存しました" : "PDF saved successfully", { id: loadingToast });
     } catch (error) {
       console.error("Error exporting PDF:", error);
@@ -194,17 +184,17 @@ export default function ReportEditorPage() {
     );
 
   return (
-    <div className="min-h-screen bg-white pb-32">
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-white pb-32 print:pb-0">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 print:py-4">
         <Link
           to={`/${lang}/project/${report?.projectId}`}
-          className="inline-flex items-center gap-2 text-sm font-mono font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-12 group"
+          className="inline-flex items-center gap-2 text-sm font-mono font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-12 group print:hidden"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
           {t.backToProject}
         </Link>
 
-        <header className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16">
+        <header className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 print:mb-8">
           <div className="flex items-start gap-6">
             <div className="h-16 w-16 bg-ink text-white rounded flex items-center justify-center shrink-0">
               <FileText className="h-8 w-8" />
@@ -237,7 +227,7 @@ export default function ReportEditorPage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4 print:hidden">
             <button
               onClick={handleExportPDF}
               disabled={isExporting}
@@ -284,7 +274,7 @@ export default function ReportEditorPage() {
           </div>
         </header>
 
-        <div ref={reportRef} className="bg-white p-4">
+        <div ref={reportRef} className="bg-white p-4 print:p-0">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Report Content */}
           <div className="lg:col-span-8">
@@ -374,7 +364,7 @@ export default function ReportEditorPage() {
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
-            className="fixed bottom-0 left-0 right-0 bg-white border-t border-ink p-6 z-40 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]"
+            className="fixed bottom-0 left-0 right-0 bg-white border-t border-ink p-6 z-40 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] print:hidden"
           >
             <div className="max-w-6xl mx-auto flex items-center justify-end gap-6">
               <button

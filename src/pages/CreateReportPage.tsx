@@ -177,7 +177,7 @@ export default function CreateReportPage() {
           {
             url: "", 
             path: "", 
-            localData: base64Data, // DataURL format
+            localData: base64Data, 
             note: ""
           }
         ]);
