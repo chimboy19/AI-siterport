@@ -16,6 +16,7 @@ export const projectsAPI = {
 
     return docRef.id;
   },
+
   getProjectById: async (projectId: string): Promise<Project | null> => {
     const projectRef = doc(db, "projects", projectId);
     const snap = await getDoc(projectRef);
