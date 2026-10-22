@@ -1,6 +1,6 @@
 import { auth } from '../firebase';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import { LogOut, Menu, Settings } from 'lucide-react';
+import { LogOut, Menu } from 'lucide-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Logout } from '../firebase';
 import toast from 'react-hot-toast';

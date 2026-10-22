@@ -2,9 +2,8 @@ import { useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Plus, Folder, Calendar, ChevronRight, FileText,
-  BarChart3, Clock, Image as ImageIcon, Trash2, Edit3,
-  ArrowRight, Search, Sparkles, X, TrendingUp,
+  Plus, Folder, ChevronRight, FileText,
+  Image as ImageIcon, Trash2, Edit3, Search, Sparkles, X,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -22,7 +21,7 @@ import { Progress } from '../components/ui/progress';
 import {
   Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter,
 } from '../components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+
 
 // ─── i18n ──────────────────────────────────────────────────────────────────────
 
@@ -423,7 +422,7 @@ const Dashboard = () => {
                           className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-muted/40 transition-colors group"
                         >
                           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted shrink-0">
-                            <FileText className="h-4 w-4 text-muted-foreground" />
+                            <FileText className="h-4 w-4 text-muted-foreground " />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-medium truncate">{report.title}</p>

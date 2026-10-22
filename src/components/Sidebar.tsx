@@ -2,8 +2,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { LayoutDashboard, Folder, Search, Settings, X, HardHat } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Badge } from './ui/badge';
-import { Separator } from './ui/separator';
+
 
 const translations = {
   en: {

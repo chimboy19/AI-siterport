@@ -16,8 +16,8 @@ import { ja, enUS } from "date-fns/locale";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Badge } from "../components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/ui/card";
-import { Separator } from "../components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../components/ui/card";
+
 
 const translations = {
   en: {

@@ -11,7 +11,7 @@ import { feedbackAPI } from "../api/feedback";
 import type { SiteImage } from "../types";
 import {
   Folder, ArrowLeft, Camera, X, Sparkles, FileText,
-  Save, Loader2, Calendar, ImageIcon,
+  Save, Loader2, Calendar,
 } from "lucide-react";
 import { generateSiteReport } from "../services/gemini";
 import ReactMarkdown from "react-markdown";

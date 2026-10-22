@@ -22,7 +22,6 @@ const Layout = ({ children, pageTitle }: LayoutProps) => {
       <div className="flex flex-1 flex-col lg:pl-64 min-h-screen print:pl-0">
         <Navbar
           onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-          pageTitle={pageTitle}
         />
         <main className="flex-1 overflow-auto">{children}</main>
       </div>
