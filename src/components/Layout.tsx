@@ -7,7 +7,7 @@ interface LayoutProps {
   pageTitle?: string;
 }
 
-const Layout = ({ children, pageTitle }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
